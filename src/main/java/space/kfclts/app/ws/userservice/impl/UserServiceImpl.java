@@ -4,8 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import space.kfclts.app.ws.shared.Utils;
 import space.kfclts.app.ws.ui.model.request.UserDetailsRequestModel;
 import space.kfclts.app.ws.ui.model.response.UserRest;
 import space.kfclts.app.ws.userservice.UserService;
@@ -14,6 +16,15 @@ import space.kfclts.app.ws.userservice.UserService;
 public class UserServiceImpl implements UserService {
 
 	Map<String, UserRest> users;
+	Utils utils;
+	
+	public UserServiceImpl() {}
+	
+	@Autowired
+	public UserServiceImpl(Utils utils) {
+		this.utils = utils;
+	}
+	
 	
 	@Override
 	public UserRest createUser(UserDetailsRequestModel userDetails) {
@@ -24,7 +35,7 @@ public class UserServiceImpl implements UserService {
 		user.setEmail(userDetails.getEmail());
 //		user.setUserId(userDetails.getPassword());
 
-		String userId = UUID.randomUUID().toString();
+		String userId = utils.generateUserId();
 		user.setUserId(userId);
 		if (users == null)
 			users = new HashMap<>();

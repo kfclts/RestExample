@@ -34,7 +34,7 @@ public class UserController {
 	Map<String, UserRest> users;
 
 	@Autowired
-	UserService userservice;
+	UserService userService;
 	
 	@GetMapping
 	public String getUsers(@RequestParam(value = "page", defaultValue = "1") int page,
@@ -64,7 +64,7 @@ public class UserController {
 			MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<UserRest> createUser(@Valid @RequestBody UserDetailsRequestModel userDetails) {
 		
-		UserRest user = new UserServiceImpl().createUser(userDetails);
+		UserRest user = userService.createUser(userDetails);
 		return new ResponseEntity<UserRest>(user, HttpStatus.CREATED);
 	}
 
