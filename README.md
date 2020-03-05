@@ -19,3 +19,5 @@ At last, click apply, run
 DEBUG Mode
 
 ResponseEntity.noContent().build();
+super(message);
+Add serial VersionId
