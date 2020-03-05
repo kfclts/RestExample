@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -21,8 +22,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import space.kfclts.app.ws.exceptions.UserServiceException;
 import space.kfclts.app.ws.ui.model.request.UpdateUserDetailsRequestModel;
-import space.kfclts.app.ws.ui.model.request.UserDetailRequestModel;
+import space.kfclts.app.ws.ui.model.request.UserDetailsRequestModel;
 import space.kfclts.app.ws.ui.model.response.UserRest;
+import space.kfclts.app.ws.userservice.UserService;
+import space.kfclts.app.ws.userservice.impl.UserServiceImpl;
 
 @RestController
 @RequestMapping("users") // http://localhost:8000/users
@@ -30,6 +33,9 @@ public class UserController {
 
 	Map<String, UserRest> users;
 
+	@Autowired
+	UserService userservice;
+	
 	@GetMapping
 	public String getUsers(@RequestParam(value = "page", defaultValue = "1") int page,
 			@RequestParam(value = "limit", defaultValue = "30") int limit,
@@ -56,19 +62,9 @@ public class UserController {
 
 	@PostMapping(consumes = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE }, produces = {
 			MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<UserRest> createUser(@Valid @RequestBody UserDetailRequestModel userDetails) {
-		UserRest user = new UserRest();
-		user.setFirstName(userDetails.getFirstName());
-		user.setLastName(userDetails.getLastName());
-		user.setEmail(userDetails.getEmail());
-//		user.setUserId(userDetails.getPassword());
-
-		String userId = UUID.randomUUID().toString();
-		user.setUserId(userId);
-		if (users == null)
-			users = new HashMap<>();
-		users.put(userId, user);
-
+	public ResponseEntity<UserRest> createUser(@Valid @RequestBody UserDetailsRequestModel userDetails) {
+		
+		UserRest user = new UserServiceImpl().createUser(userDetails);
 		return new ResponseEntity<UserRest>(user, HttpStatus.CREATED);
 	}
 

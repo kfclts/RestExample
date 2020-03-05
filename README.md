@@ -21,3 +21,5 @@ DEBUG Mode
 ResponseEntity.noContent().build();
 super(message);
 Add serial VersionId
+
+DI, at implementation, you can add unimplemented methods
