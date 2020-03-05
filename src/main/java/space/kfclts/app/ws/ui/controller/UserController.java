@@ -1,5 +1,6 @@
 package space.kfclts.app.ws.ui.controller;
 
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,38 +13,37 @@ import org.springframework.web.bind.annotation.RestController;
 import space.kfclts.app.ws.ui.controller.ui.model.response.UserRest;
 
 @RestController
-@RequestMapping("users") 	// http://localhost:8000/users
+@RequestMapping("users") // http://localhost:8000/users
 public class UserController {
 
 	@GetMapping
-	public String getUsers(@RequestParam(value="page", defaultValue="1") int page,
-			@RequestParam(value="limit", defaultValue="30") int limit,
-			@RequestParam(value="sort", required=false) String sort) {
+	public String getUsers(@RequestParam(value = "page", defaultValue = "1") int page,
+			@RequestParam(value = "limit", defaultValue = "30") int limit,
+			@RequestParam(value = "sort", required = false) String sort) {
 		return "Get User was called w/ page = " + page + " and limit = " + limit + " and sort = " + sort;
 	}
-	
-	@GetMapping(path = "/{userId}")
+
+	@GetMapping(path = "/{userId}", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
 	public UserRest getUser(@PathVariable String userId) {
 		UserRest user = new UserRest();
 		user.setFirstName("K");
 		user.setLastName("FC");
 		user.setEmail("kf@gm.co");
 		user.setUserId("3393");
-				
+
 		return user;
 	}
-	
+
 	@PostMapping
-	public String createUser () {
+	public String createUser() {
 		return "Create User was called";
 	}
-	
+
 	@PutMapping
 	public String updateUser() {
 		return "Update User was called";
 	}
-	
-	
+
 	@DeleteMapping
 	public String deleteUser() {
 		return "Delete User was called";
