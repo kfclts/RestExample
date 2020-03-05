@@ -1,5 +1,9 @@
 package space.kfclts.app.ws.ui.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+
 import javax.validation.Valid;
 
 import org.springframework.http.HttpStatus;
@@ -22,6 +26,8 @@ import space.kfclts.app.ws.ui.controller.ui.model.response.UserRest;
 @RequestMapping("users") // http://localhost:8000/users
 public class UserController {
 
+	Map<String, UserRest> users;
+
 	@GetMapping
 	public String getUsers(@RequestParam(value = "page", defaultValue = "1") int page,
 			@RequestParam(value = "limit", defaultValue = "30") int limit,
@@ -31,13 +37,13 @@ public class UserController {
 
 	@GetMapping(path = "/{userId}", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<UserRest> getUser(@PathVariable String userId) {
-		UserRest user = new UserRest();
-		user.setFirstName("K");
-		user.setLastName("FC");
-		user.setEmail("kf@gm.co");
-		user.setUserId("3393");
+		
+		if (users.containsKey(userId)) {
+			return new ResponseEntity<>(users.get(userId), HttpStatus.OK);
+		}
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
-		return new ResponseEntity<UserRest>(user, HttpStatus.OK);
+		
 	}
 
 	@PostMapping(consumes = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE }, produces = {
@@ -48,7 +54,13 @@ public class UserController {
 		user.setLastName(userDetails.getLastName());
 		user.setEmail(userDetails.getEmail());
 //		user.setUserId(userDetails.getPassword());
-		
+
+		String userId = UUID.randomUUID().toString();
+		user.setUserId(userId);
+		if (users == null)
+			users = new HashMap<>();
+		users.put(userId, user);
+
 		return new ResponseEntity<UserRest>(user, HttpStatus.CREATED);
 	}
 
