@@ -9,3 +9,6 @@ At last, click apply, run
 
 ## Search Maven Repo
 [reference](https://mvnrepository.com)
+
+## HTTP Status Code
+[Reference](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes)
