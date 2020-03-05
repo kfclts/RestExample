@@ -1,4 +1,4 @@
-package space.kfclts.app.ws.ui.controller.ui.model.response;
+package space.kfclts.app.ws.ui.model.response;
 
 public class UserRest {
 	private String firstName;

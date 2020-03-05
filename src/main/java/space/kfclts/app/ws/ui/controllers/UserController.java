@@ -1,4 +1,4 @@
-package space.kfclts.app.ws.ui.controller;
+package space.kfclts.app.ws.ui.controllers;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,9 +19,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import space.kfclts.app.ws.ui.controller.ui.model.request.UpdateUserDetailsRequestModel;
-import space.kfclts.app.ws.ui.controller.ui.model.request.UserDetailRequestModel;
-import space.kfclts.app.ws.ui.controller.ui.model.response.UserRest;
+import space.kfclts.app.ws.ui.model.request.UpdateUserDetailsRequestModel;
+import space.kfclts.app.ws.ui.model.request.UserDetailRequestModel;
+import space.kfclts.app.ws.ui.model.response.UserRest;
 
 @RestController
 @RequestMapping("users") // http://localhost:8000/users

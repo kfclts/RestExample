@@ -12,3 +12,10 @@ At last, click apply, run
 
 ## HTTP Status Code
 [Reference](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes)
+
+
+
+
+DEBUG Mode
+
+ResponseEntity.noContent().build();

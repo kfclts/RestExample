@@ -1,4 +1,4 @@
-package space.kfclts.app.ws.ui.controller.ui.model.request;
+package space.kfclts.app.ws.ui.model.request;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
